@@ -1,0 +1,3 @@
+eclipse.preferences.version=1
+validator.Checked=src/club/iamobject/provider/DemoServiceImpl.java,WebRoot/WEB-INF/dubbo-provider.xml,WebRoot/index.jsp,src/dubbo-provider.xml
+validator.Unchecked=
