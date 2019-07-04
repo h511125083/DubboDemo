@@ -1,0 +1,118 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>dubbo-service-provider</groupId>
+	<artifactId>dubbo-service-provider</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<repositories>
+		<repository>
+			<id>nexus-aliyun</id>
+			<name>Nexus aliyun</name>
+			<layout>default</layout>
+			<url>http://maven.aliyun.com/nexus/content/groups/public</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>152_plugins</id>
+			<url>http://192.168.10.152:8081/repository/erayt_plugins_group/</url>
+		</pluginRepository>
+	</pluginRepositories>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>4.0.0-b06</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>dubbo</artifactId>
+			<version>2.5.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.netty</groupId>
+			<artifactId>netty</artifactId>
+			<version>3.2.5.Final</version>
+		</dependency>
+	</dependencies>
+
+
+	<build>
+		<plugins>
+
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<version>3.0</version>
+					<warSourceDirectory>WebRoot</warSourceDirectory>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+
+			<!-- 编译版本1.7 -->
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+
+			<!--检查pmd和findbugs 要求系统JDK为1.7仅供本地检查 -->
+			<!--本地检查步骤：1. cd 到 xdataPortal的目录下 (cd /d 项目目录) -->
+			<!-- 2. 执行 mvn clean package -->
+			<!-- 3. 执行 mvn com.erayt.maven.mojo:version-maven-plugin:1.0:versiondeal 
+				(pmd 需要单独执行) -->
+			<plugin>
+				<groupId>com.erayt.maven.mojo</groupId>
+				<artifactId>version-maven-plugin</artifactId>
+				<version>1.0</version>
+				<executions>
+					<execution>
+						<id>version-control</id>
+						<phase>package</phase>
+						<goals>
+							<goal>version</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<groupArtifactVersion>xdataPortal:xdataPortal:1.0-SNAPSHOT</groupArtifactVersion>
+					<archiveFolder>release</archiveFolder>
+					<archiveDirectories>doc,sql,bin</archiveDirectories>
+					<defaultWebRoot>WebRoot</defaultWebRoot>
+					<findbugsPath>E:/07javacheck/findbugs-2.0.2-rc2</findbugsPath>
+					<checkpmdPath>E:/07javacheck/pmd-5.5.5</checkpmdPath>
+					<ruleFile>E:/07javacheck/pmd-5.5.5/erayt_checkpmd.xml</ruleFile>
+					<reportLevel>Medium</reportLevel>
+					<findbugsReportName>findbugs_report.txt</findbugsReportName>
+					<checkpmdReportName>checkpmd_report.txt</checkpmdReportName>
+					<packWar>false</packWar>
+					<packWarFolder>war</packWarFolder>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
